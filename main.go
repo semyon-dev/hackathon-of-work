@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"hackathon-work/db"
 )
 
@@ -8,9 +9,9 @@ func main() {
 
 	db.Connect()
 
-	//duties := [...]string{"обязанност"}
-	//demands := [...]string{"требован"}
-	//scheduleTypes := [...]string{"смен", "2/2", "5/2", "пятидневка"}
+	duties, demands := KeyWords()
+
+	fmt.Println(duties, demands)
 
 	var text = "Обязанности:   Приготовление напитков в баре  Прием и подача заказов по столикам Работа с кассой\n" +
 		"Требования:  Желание работать и зарабатывать. Опыт работы на подобной должности будет Вашим преимуществом.\n" +
@@ -20,3 +21,9 @@ func main() {
 	_ = text
 }
 
+func KeyWords() ([]string, []string)  {
+
+	duties := []string{"обязанност"}
+	demands := []string{"требован", "приглашаем"}
+	return duties, demands
+}
