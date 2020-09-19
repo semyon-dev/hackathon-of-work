@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"hackathon-work/api"
 	"hackathon-work/db"
 	"hackathon-work/model"
 	"strings"
@@ -14,9 +15,21 @@ func main() {
 
 	restaurant, drivers, store := CreateTypes()
 
+	go api.RunAPI()
+
+	//duties, _ := KeyWords()
+
+	var text = "Обязанности:   Приготовление напитков в баре  Прием и подача заказов по столикам Работа с кассой\n" +
+		"Требования:  Желание работать и зарабатывать. Опыт работы на подобной должности будет Вашим преимуществом.\n" +
+		"А вообще всему научим и всему обучим, так что не нужно бояться приходить без опыта работы). Наличие медицинской книжки будет Вашим преимуществом.\n" +
+		"Условия:  График сменный 2\\2. Будние дни с 9-00 до 21-00. Выходные дни с 9-00 до 21-00. Оформление по ТК. Оплата: 100 руб/час + % + чаевые"
+
+	_ = text
+
 	vacations := db.GetVacations(1, 11)
 
 	for _, vacation := range vacations {
+		fmt.Println(vacation.Id)
 		//fmt.Println("++++++",vacation.Description, "=========")
 		//for _, word := range duties {
 		//	if strings.Contains(strings.ToLower(vacation.Description), word) {
