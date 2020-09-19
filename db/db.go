@@ -2,6 +2,7 @@ package db
 
 import (
 	"database/sql"
+	"github.com/semyon-dev/HackatonWork/model"
 	"log"
 
 	_ "github.com/lib/pq"
@@ -27,13 +28,13 @@ func Connect() {
 	}
 	defer rows.Close()
 
-	bks := make([]*Book, 0)
+	resumes := make([]*model.Resume, 0)
 	for rows.Next() {
-		bk := new(Book)
-		err := rows.Scan(&bk.isbn, &bk.title, &bk.author, &bk.price)
+		resume := new(model.Resume)
+		err := rows.Scan(&resume.CandidateID, &resume.Description, &resume.Position, &resume.Organization)
 		if err != nil {
 			log.Fatal(err)
 		}
-		bks = append(bks, bk)
+		resumes = append(resumes, resume)
 	}
 }
