@@ -12,14 +12,7 @@ func main() {
 
 	db.Connect()
 
-	//duties, _ := KeyWords()
-
-	var text = "Обязанности:   Приготовление напитков в баре  Прием и подача заказов по столикам Работа с кассой\n" +
-		"Требования:  Желание работать и зарабатывать. Опыт работы на подобной должности будет Вашим преимуществом.\n" +
-		"А вообще всему научим и всему обучим, так что не нужно бояться приходить без опыта работы). Наличие медицинской книжки будет Вашим преимуществом.\n" +
-		"Условия:  График сменный 2\\2. Будние дни с 9-00 до 21-00. Выходные дни с 9-00 до 21-00. Оформление по ТК. Оплата: 100 руб/час + % + чаевые"
-
-	_ = text
+	restaurant, drivers, store := CreateTypes()
 
 	vacations := db.GetVacations(1, 11)
 
@@ -37,9 +30,6 @@ func main() {
 		//	}
 		//}
 		pieces := strings.Split(strings.ToLower(vacation.Description), "обязанности: ")
-		for _, val := range pieces {
-			fmt.Println("/////", val)
-		}
 
 		var duity, demand string
 
@@ -58,11 +48,22 @@ func main() {
 					i := strings.Index(t, "условия:")
 					demand = t[:i]
 				}
-				fmt.Println("Duity: ", duity, "\nDemand: ", demand)
+
+				vacation.Duties = duity
+				vacation.Demands = demand
+
+				vacation = DetectType(vacation, restaurant, "restaurant")
+				vacation = DetectType(vacation, drivers, "drivers")
+				vacation = DetectType(vacation, store, "store")
+
+				fmt.Printf("Type: %s,\nDuity: %s,\nDemand: %s.", vacation.Type, vacation.Duties, vacation.Demands)
+
+			} else {
+				fmt.Println("Unsuccessful Demand crop")
 			}
 
 		} else {
-			fmt.Println("Unsuccessful crop")
+			fmt.Println("Unsuccessful Duty crop")
 		}
 
 	}
@@ -77,18 +78,23 @@ func DeleteStartSpaces(raw string) (formatted string) {
 	return formatted
 }
 
-func KeyWords() ([]string, []string) {
+func CreateTypes() ([]string, []string, []string) {
 
-	duties := []string{"обязанности:", "обязанност"}
-	demands := []string{"требования:", "приглашаем"}
-	return duties, demands
+	restaurant := []string{"официант", "ресторан", "бариста", "фаст-фуд", "повар"}
+	drivers := []string{"водитель"}
+	store := []string{"склад", "кладовщик", "комплектовщик"}
+
+	return restaurant, drivers, store
 }
 
-func DetectType(resume model.Resume) {
+func DetectType(vacation model.NewVacation, words []string, wantedType string) model.NewVacation {
+	for _, word := range words {
+		if strings.Contains(strings.ToLower(vacation.Name), word) {
 
-	//restaurant := []string{"официант", "ресторан", "бариста", "фаст-фуд", "повар"}
-	//drivers := []string{"водитель"}
-	//store := []string{"склад", "кладовщик"}
-
-
+			vacation.Type = wantedType
+			db.UpdateNewVacation(vacation)
+			break
+		}
+	}
+	return vacation
 }
