@@ -5,7 +5,10 @@ import (
 	"strings"
 )
 
-type Resume struct {
+type Candidate struct {
+	Id           int64  `json:"id"` // postgres primary key
+	Type         string `db:"type"`
+	Experience   string `db:"experience"`
 	CandidateID  string `db:"candidate_id"`
 	Position     string `db:"position"`
 	Organization string `db:"organization"`
