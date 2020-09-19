@@ -58,20 +58,28 @@ type NewVacation struct {
 	Demands         string `db:"demands"` // новое
 }
 
-type res []Data
+// ------------------- ML -----------------
+
+type Res []Data
 
 // data to answer
 type Data struct {
-	Title      string `json:"title"`
-	Paragraphs []struct {
-		Context string
-		Qas     []struct {
-			Answers []struct {
-				AnswerStart uint64 `json:"answer_start"`
-				Text        string `json:"text"`
-			} `json:"answers"`
-			Question string `json:"question"`
-			Id       string `json:"id"`
-		} `json:"qas"`
-	} `json:"paragraphs"`
+	Title      string      `json:"title"`
+	Paragraphs []Paragraph `json:"paragraphs"`
+}
+
+type Paragraph struct {
+	Context string
+	Qas     []Qas `json:"qas"`
+}
+
+type Qas struct {
+	Answers  []Answer `json:"answers"`
+	Question string   `json:"question"`
+	Id       string   `json:"id"`
+}
+
+type Answer struct {
+	AnswerStart uint64 `json:"answer_start"`
+	Text        string `json:"text"`
 }
