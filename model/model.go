@@ -6,7 +6,7 @@ import (
 )
 
 type Candidate struct {
-	Id           int64  `json:"id"` // postgres primary key
+	Id           int64  `db:"id"` // postgres primary key
 	Type         string `db:"type"`
 	Experience   string `db:"experience"`
 	CandidateID  string `db:"candidate_id"`

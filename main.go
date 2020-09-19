@@ -18,11 +18,10 @@ func main() {
 	go api.RunAPI()
 	var correct, incorrect int
 	var limit uint64
-	limit = 1000
+	limit = 100000
 	vacations := db.GetVacations(limit, 11)
 
 	for _, vacation := range vacations {
-		fmt.Println(vacation.Id)
 		//fmt.Println("++++++",vacation.Description, "=========")
 		//for _, word := range duties {
 		//	if strings.Contains(strings.ToLower(vacation.Description), word) {
@@ -49,9 +48,9 @@ func main() {
 		}
 
 		db.UpdateNewVacation(vacation)
-		fmt.Printf("Type: %s,\nDuity: %s,\nDemand: %s.", vacation.Type, vacation.Duties, vacation.Demands)
+		//fmt.Printf("Type: %s,\nDuity: %s,\nDemand: %s.", vacation.Type, vacation.Duties, vacation.Demands)
 	}
-	fmt.Printf("\nCorrect columns: %d\nIncorrect columns: %d\nIn percent: %0.2f%%\n", correct, incorrect, float64(correct) / float64(limit)*100)
+	fmt.Printf("\nCorrect columns: %d\nIncorrect columns: %d\nIn percent: %0.2f%%\n", correct, incorrect, float64(correct)/float64(limit)*100)
 
 }
 
@@ -67,7 +66,7 @@ func DeleteStartSpaces(raw string) (formatted string) {
 func CreateTypes() ([]string, []string, []string) {
 
 	restaurant := []string{"официант", "ресторан", "бариста", "фаст-фуд", "повар"}
-	drivers := []string{"водитель"}
+	drivers := []string{"водитель", "машинист"}
 	store := []string{"склад", "кладовщик", "комплектовщик"}
 
 	return restaurant, drivers, store
