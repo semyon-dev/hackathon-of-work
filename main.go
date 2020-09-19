@@ -29,18 +29,20 @@ func main() {
 				fmt.Println(index)
 				temp := []rune(vacation.Description)
 				t := temp[index:]
-				c := 0
-				for i := 0; !unicode.IsLetter(t[i]); i++ {
-					c++
-				}
-				fmt.Println("Parsed Duties: ", string(t[c:]))
+				t = DeleteStartSpaces(t)
+				fmt.Println("Parsed Duties: ", string(t))
 			}
 		}
 	}
 }
 
-func DeleteStartSpaces(raw string) (formated string) {
-
+func DeleteStartSpaces(raw []rune) (formatted []rune) {
+	c := 0
+	for i := 0; !unicode.IsLetter(raw[i]); i++ {
+		c++
+	}
+	formatted = raw[c:]
+	return formatted
 }
 
 func KeyWords() ([]string, []string) {
