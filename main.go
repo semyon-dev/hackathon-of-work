@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"hackathon-work/api"
 	"hackathon-work/db"
 	"hackathon-work/model"
 	"strings"
@@ -11,6 +12,8 @@ import (
 func main() {
 
 	db.Connect()
+
+	api.RunAPI()
 
 	//duties, _ := KeyWords()
 
@@ -89,6 +92,5 @@ func DetectType(resume model.Resume) {
 	//restaurant := []string{"официант", "ресторан", "бариста", "фаст-фуд", "повар"}
 	//drivers := []string{"водитель"}
 	//store := []string{"склад", "кладовщик"}
-
 
 }
