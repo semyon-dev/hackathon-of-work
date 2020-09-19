@@ -1,7 +1,10 @@
 package api
 
 import (
+	"encoding/json"
 	"github.com/gin-gonic/gin"
+	"hackathon-work/NNRequests"
+	"io/ioutil"
 	"log"
 	"net/http"
 )
@@ -32,6 +35,37 @@ func RunAPI() {
 			"message": "ok",
 		})
 	})
+
+
+	r.POST("/answers",func(ctx *gin.Context) {
+		body,err:=ctx.Request.GetBody()
+		if err!=nil{
+			panic(err)
+		}
+		bytes,err:= ioutil.ReadAll(body)
+		if err!=nil{
+			panic(err)
+		}
+		dictQuestions := make(map[string]map[string]string)
+		jsonData := make(map[string]interface{})
+		err = json.Unmarshal(bytes,&jsonData)
+		dictQuestions = jsonData["questions"].(map[string]map[string]string)
+
+		answers:= NNRequests.GetMapAnswers(dictQuestions,jsonData["context"].(string))
+
+		jsonStr,err := json.Marshal(answers)
+		if err!=nil{
+			panic(err)
+		}
+		ctx.JSON(200,gin.H{
+			"data": string(jsonStr),
+		})
+
+	})
+
+
+
+
 
 	err := r.Run(":5555")
 	if err != nil {
