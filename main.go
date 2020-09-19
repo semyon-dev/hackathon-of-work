@@ -29,6 +29,7 @@ func main() {
 				fmt.Println(index)
 				temp := []rune(vacation.Description)
 				t := temp[index:]
+				t = t[len([]rune(duties[0])):]
 				t = DeleteStartSpaces(t)
 				fmt.Println("Parsed Duties: ", string(t))
 			}
