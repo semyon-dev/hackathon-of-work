@@ -20,10 +20,9 @@ func main() {
 
 	_ = text
 
-	vacations := db.GetVacations(1, 101)
+	vacations := db.GetVacations(1, 11)
 
 	for _, vacation := range vacations {
-		fmt.Println(vacation.Description)
 		//fmt.Println("++++++",vacation.Description, "=========")
 		//for _, word := range duties {
 		//	if strings.Contains(strings.ToLower(vacation.Description), word) {
@@ -41,10 +40,26 @@ func main() {
 			fmt.Println("/////", val)
 		}
 
+		var duity, demand string
+
 		if len(pieces) > 1 {
 			temp := pieces[1]
 			temp = DeleteStartSpaces(temp)
-			fmt.Println("No spaces: ", temp)
+			if strings.Contains(temp, "требования:") {
+				i := strings.Index(temp, "требования:")
+				duity = temp[:i]
+			}
+
+			temps := strings.Split(strings.ToLower(temp), "требования: ")
+			if len(temps) > 1 {
+				t := temps[1]
+				if strings.Contains(t, "условия:") {
+					i := strings.Index(t, "условия:")
+					demand = t[:i]
+				}
+				fmt.Println("Duity: ", duity, "\nDemand: ", demand)
+			}
+
 		} else {
 			fmt.Println("Unsuccessful crop")
 		}
