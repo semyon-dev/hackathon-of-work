@@ -1,4 +1,4 @@
-module github.com/semyon-dev/HackatonWork
+module hackathon-work
 
 go 1.15
 
