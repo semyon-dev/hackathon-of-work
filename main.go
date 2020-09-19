@@ -6,7 +6,6 @@ import (
 )
 
 func main() {
-
 	db.Connect()
 	api.RunAPI()
 }
