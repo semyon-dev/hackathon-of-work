@@ -15,7 +15,7 @@ func InsertStoreAnswers(answers model.CandidateStore) (err error) {
 	return err
 }
 
-func InsertDriversAnswers(answers model.CandidateDrivers) (err error) {
+func InsertDriversAnswers(answers model.CandidateDriver) (err error) {
 	_, err = candidatesStoreCollection.InsertOne(context.Background(), answers)
 	return err
 }

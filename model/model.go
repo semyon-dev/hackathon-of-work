@@ -6,15 +6,18 @@ import (
 )
 
 type Candidate struct {
-	Id           int64  `db:"id"` // postgres primary key
-	Type         string `db:"type"`
-	Experience   string `db:"experience"`
-	CandidateID  string `db:"candidate_id"`
-	Position     string `db:"position"`
-	Organization string `db:"organization"`
-	Description  string `db:"description"`
-	StartDate    string `db:"start_date"`
-	EndDate      string `db:"end_date"`
+	Id                 int64    `db:"id"` // postgres primary key
+	Type               string   `db:"type"`
+	Experience         string   `db:"experience"`
+	ExperiencePrograms []string `db:"exp_programs"`
+	Industry           []string `db:"industry"`
+	CandidateID        string   `db:"candidate_id"`
+	Position           string   `db:"position"`
+	Organization       string   `db:"organization"`
+	Description        string   `db:"description"`
+	StartDate          string   `db:"start_date"`
+	EndDate            string   `db:"end_date"`
+	Systems            []string `db:"systems"`
 }
 
 type NewVacation struct {
