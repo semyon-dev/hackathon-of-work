@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/semyon-dev/HackatonWork/db"
-	"github.com/semyon-dev/HackatonWork/model"
+	"hackathon-work/db"
+	"hackathon-work/model"
 )
 
 func main() {
@@ -23,7 +23,7 @@ func main() {
 
 func ParseData(raw string) model.Vacation {
 	return model.Vacation{
-		Id: "",
+		Id:        "",
 		Name:      "",
 		AreaName:  "",
 		City:      "",

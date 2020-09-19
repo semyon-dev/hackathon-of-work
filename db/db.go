@@ -2,7 +2,7 @@ package db
 
 import (
 	"database/sql"
-	"github.com/semyon-dev/HackatonWork/model"
+	"hackathon-work/model"
 	"log"
 
 	_ "github.com/lib/pq"
