@@ -1,0 +1,8 @@
+{
+  "questions": {
+    "q1":{ "type": "string", "question": "Чем занималась?"},
+    "q2":{ "type": "string", "question": "Какие были обязанности?"},
+    "q3":{ "type": "string", "question": "Где работал?"}
+  },
+  "context": "large text"
+}
