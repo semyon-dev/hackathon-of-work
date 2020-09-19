@@ -9,7 +9,9 @@ import (
 )
 
 var client *mongo.Client
-var candidatesCollection *mongo.Collection
+var candidatesStoreCollection *mongo.Collection
+var candidatesRestaurantCollection *mongo.Collection
+var candidatesDriversCollection *mongo.Collection
 var vacationsCollection *mongo.Collection
 
 func Connect() {
@@ -33,6 +35,8 @@ func Connect() {
 		fmt.Println("✔ Подключение client MongoDB успешно")
 	}
 	mainDB := client.Database("main")
-	candidatesCollection = mainDB.Collection("candidates")
+	candidatesStoreCollection = mainDB.Collection("candidates_store")
+	candidatesRestaurantCollection = mainDB.Collection("candidates_restaurant")
+	candidatesDriversCollection = mainDB.Collection("candidates_drivers")
 	vacationsCollection = mainDB.Collection("vacations")
 }
