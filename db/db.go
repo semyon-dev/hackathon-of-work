@@ -34,3 +34,11 @@ func GetResumes(limit, offset uint64) (resumes []model.Resume) {
 	}
 	return resumes
 }
+
+func GetVacations(limit, offset uint64) (vacancies []model.Vacation) {
+	err := db.Select(&vacancies, "SELECT * FROM vacancies LIMIT $1 OFFSET $2", limit, offset)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return vacancies
+}
