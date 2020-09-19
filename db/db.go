@@ -1,7 +1,6 @@
 package db
 
 import (
-	"fmt"
 	"hackathon-work/model"
 	"log"
 
@@ -45,9 +44,8 @@ func GetVacations(limit, offset uint64) (vacancies []model.NewVacation) {
 }
 
 func UpdateNewVacation(vacancie model.NewVacation) {
-	result, err := db.NamedExec(`update vacancies SET duties = :duties, demands = :demands, type = :type WHERE id = :id`, vacancie)
+	_, err := db.NamedExec(`update vacancies SET duties = :duties, demands = :demands, type = :type WHERE id = :id`, vacancie)
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(result.RowsAffected())
 }
