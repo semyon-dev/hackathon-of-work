@@ -1,30 +1,49 @@
 <template>
   <div>
-    <div>
-      <input list="competentions" type="text" v-model="compType"/>
+    <div class="right-cell-grid">
+      <div class="center">
+        <img alt="Vue logo" src="../assets/logo.jpg" width="260px">
+        <div>
+          <input list="competentions" type="text" v-model="compType"/>
 
-      <datalist id="competentions">
-        <option v-for="(comp, index) in competentions" :key="index">
-          {{ comp }}
-        </option>
-      </datalist>
+          <datalist id="competentions">
+            <option v-for="(comp, index) in competentions" :key="index">
+              {{ comp }}
+            </option>
+          </datalist>
 
-      <br>
-      <br>
+          <br>
+          <br>
 
-      <textarea v-model="resume" style="align-content: center"></textarea>
+          <input  type="file"  v-on:change="changeFile" />
 
-      <br>
-      <br>
+          <br>
+          <br>
 
 
-      <button @click="load">send resume</button>
+          <button class="white--text v-btn theme--light elevation-10 v-size--default accent" @click="load">загрузить резюме</button>
+        </div>
+
+      </div>
+
+      <div>
+        <div class="vector1">
+          <img src="../images/Vector1.png" />
+        </div>
+        <div class="vector2">
+          <img src="../images/Vector2.png" />
+        </div>
+      </div>
+
 
     </div>
   </div>
 </template>
 
 <script>
+
+
+
 export default {
   name: "CreateResume",
   data: () => {
@@ -51,11 +70,21 @@ export default {
           .then(data => console.log(data));
 
 
+    },
+    changeFile(event){
+      console.log('file changed!!!!!!!!!')
+      console.log(event.target.files[0])
+
     }
   }
 }
 </script>
 
-<style scoped>
+<style scoped src="../styles/allstyles.css">
+
+
+  .center{
+    alignment: center;
+  }
 
 </style>

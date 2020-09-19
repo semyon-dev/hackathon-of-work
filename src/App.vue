@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.jpg" width="300">
+
     <CreateResume></CreateResume>
   </div>
 </template>

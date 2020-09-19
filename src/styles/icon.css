@@ -1,0 +1,10 @@
+/* image 1 */
+.icon {
+    position: absolute;
+    left: 43.47%;
+    right: 43.54%;
+    top: 5.33%;
+    bottom: 85.67%;
+
+    background: url('../images/image.png');
+}
