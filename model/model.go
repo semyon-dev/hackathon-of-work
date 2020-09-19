@@ -1,5 +1,10 @@
 package model
 
+import (
+	"fmt"
+	"strings"
+)
+
 type Resume struct {
 	CandidateID  string `db:"candidate_id"`
 	Position     string `db:"position"`
@@ -29,6 +34,36 @@ type NewVacation struct {
 	Description     string `db:"description"`
 	Duties          string `db:"duties"`
 	Demands         string `db:"demands"`
+}
+
+func (v *NewVacation) Split() {
+	pieces := strings.Split(strings.ToLower(v.Description), "обязанности: ")
+
+	var duity, demand string
+
+	if len(pieces) > 1 {
+		temp := pieces[1]
+		if strings.Contains(temp, "требования:") {
+			i := strings.Index(temp, "требования:")
+			duity = temp[:i]
+		}
+
+		temps := strings.Split(strings.ToLower(temp), "требования: ")
+		if len(temps) > 1 {
+			t := temps[1]
+			if strings.Contains(t, "условия:") {
+				i := strings.Index(t, "условия:")
+				demand = t[:i]
+			} else {
+				fmt.Println("Demand error")
+			}
+
+			v.Duties = duity
+			v.Demands = demand
+		} else {
+			fmt.Println("Duty error")
+		}
+	}
 }
 
 // ------------------- ML -----------------

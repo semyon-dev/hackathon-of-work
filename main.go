@@ -17,15 +17,6 @@ func main() {
 
 	go api.RunAPI()
 
-	//duties, _ := KeyWords()
-
-	var text = "Обязанности:   Приготовление напитков в баре  Прием и подача заказов по столикам Работа с кассой\n" +
-		"Требования:  Желание работать и зарабатывать. Опыт работы на подобной должности будет Вашим преимуществом.\n" +
-		"А вообще всему научим и всему обучим, так что не нужно бояться приходить без опыта работы). Наличие медицинской книжки будет Вашим преимуществом.\n" +
-		"Условия:  График сменный 2\\2. Будние дни с 9-00 до 21-00. Выходные дни с 9-00 до 21-00. Оформление по ТК. Оплата: 100 руб/час + % + чаевые"
-
-	_ = text
-
 	vacations := db.GetVacations(1, 11)
 
 	for _, vacation := range vacations {
@@ -42,44 +33,18 @@ func main() {
 		//		fmt.Println("Parsed Duties: ", string(t))
 		//	}
 		//}
-		pieces := strings.Split(strings.ToLower(vacation.Description), "обязанности: ")
 
-		var duity, demand string
+		vacation.Split()
 
-		if len(pieces) > 1 {
-			temp := pieces[1]
-			temp = DeleteStartSpaces(temp)
-			if strings.Contains(temp, "требования:") {
-				i := strings.Index(temp, "требования:")
-				duity = temp[:i]
-			}
+		vacation = DetectType(vacation, restaurant, "restaurant")
+		vacation = DetectType(vacation, drivers, "drivers")
+		vacation = DetectType(vacation, store, "store")
 
-			temps := strings.Split(strings.ToLower(temp), "требования: ")
-			if len(temps) > 1 {
-				t := temps[1]
-				if strings.Contains(t, "условия:") {
-					i := strings.Index(t, "условия:")
-					demand = t[:i]
-				}
+		db.UpdateNewVacation(vacation)
 
-				vacation.Duties = duity
-				vacation.Demands = demand
-
-				vacation = DetectType(vacation, restaurant, "restaurant")
-				vacation = DetectType(vacation, drivers, "drivers")
-				vacation = DetectType(vacation, store, "store")
-
-				fmt.Printf("Type: %s,\nDuity: %s,\nDemand: %s.", vacation.Type, vacation.Duties, vacation.Demands)
-
-			} else {
-				fmt.Println("Unsuccessful Demand crop")
-			}
-
-		} else {
-			fmt.Println("Unsuccessful Duty crop")
-		}
-
+		fmt.Printf("Type: %s,\nDuity: %s,\nDemand: %s.", vacation.Type, vacation.Duties, vacation.Demands)
 	}
+
 }
 
 func DeleteStartSpaces(raw string) (formatted string) {
@@ -103,9 +68,7 @@ func CreateTypes() ([]string, []string, []string) {
 func DetectType(vacation model.NewVacation, words []string, wantedType string) model.NewVacation {
 	for _, word := range words {
 		if strings.Contains(strings.ToLower(vacation.Name), word) {
-
 			vacation.Type = wantedType
-			db.UpdateNewVacation(vacation)
 			break
 		}
 	}
