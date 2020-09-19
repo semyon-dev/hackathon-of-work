@@ -2,6 +2,7 @@ package db
 
 import (
 	"database/sql"
+	"fmt"
 	"hackathon-work/model"
 	"log"
 
@@ -37,4 +38,5 @@ func Connect() {
 		}
 		resumes = append(resumes, resume)
 	}
+	fmt.Println(resumes)
 }
