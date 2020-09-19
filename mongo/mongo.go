@@ -5,9 +5,12 @@ import (
 	"fmt"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+	"hackathon-work/config"
 )
 
 var client *mongo.Client
+var candidatesCollection *mongo.Collection
+var vacationsCollection *mongo.Collection
 
 func Connect() {
 
@@ -16,7 +19,7 @@ func Connect() {
 	ctx := context.Background()
 
 	client, err = mongo.Connect(ctx, options.Client().ApplyURI(
-		"mongodb+srv://root:@url",
+		"mongodb+srv://root:"+config.MongoDBPassword+"@cluster0.qjp6o.gcp.mongodb.net/main?retryWrites=true&w=majority",
 	))
 	if err != nil {
 		fmt.Println(err)
@@ -29,6 +32,7 @@ func Connect() {
 	} else {
 		fmt.Println("✔ Подключение client MongoDB успешно")
 	}
-	//devDatabase := client.Database("dev")
-	//fmt.Println("user collection name " + usersCollection.Name())
+	mainDB := client.Database("main")
+	candidatesCollection = mainDB.Collection("candidates")
+	vacationsCollection = mainDB.Collection("vacations")
 }
