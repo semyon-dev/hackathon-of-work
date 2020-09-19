@@ -36,36 +36,31 @@ func RunAPI() {
 		})
 	})
 
-
-	r.POST("/answers",func(ctx *gin.Context) {
-		body,err:=ctx.Request.GetBody()
-		if err!=nil{
-			panic(err)
+	r.POST("/answers", func(ctx *gin.Context) {
+		body, err := ctx.Request.GetBody()
+		if err != nil {
+			log.Println(err)
 		}
-		bytes,err:= ioutil.ReadAll(body)
-		if err!=nil{
-			panic(err)
+		bytes, err := ioutil.ReadAll(body)
+		if err != nil {
+			log.Println(err)
 		}
 		dictQuestions := make(map[string]map[string]string)
 		jsonData := make(map[string]interface{})
-		err = json.Unmarshal(bytes,&jsonData)
+		err = json.Unmarshal(bytes, &jsonData)
 		dictQuestions = jsonData["questions"].(map[string]map[string]string)
 
-		answers:= NNRequests.GetMapAnswers(dictQuestions,jsonData["context"].(string))
+		answers := NNRequests.GetMapAnswers(dictQuestions, jsonData["context"].(string))
 
-		jsonStr,err := json.Marshal(answers)
-		if err!=nil{
-			panic(err)
+		jsonStr, err := json.Marshal(answers)
+		if err != nil {
+			log.Println(err)
 		}
-		ctx.JSON(200,gin.H{
+		ctx.JSON(200, gin.H{
 			"data": string(jsonStr),
 		})
 
 	})
-
-
-
-
 
 	err := r.Run(":5555")
 	if err != nil {
