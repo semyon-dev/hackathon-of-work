@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"hackathon-work/db"
+	"math/big"
 	"strings"
 	"unicode"
 )
@@ -36,6 +37,10 @@ func main() {
 				fmt.Println("Parsed Duties: ",string(t[c:]))
 			}
 		}
+
+		for _, word := range  {
+
+		}
 	}
 }
 
@@ -44,4 +49,10 @@ func KeyWords() ([]string, []string) {
 	duties := []string{"обязанности:", "обязанност"}
 	demands := []string{"требования:", "приглашаем"}
 	return duties, demands
+}
+
+func ResumeTypes() ([]string, []string, []string) {
+
+	restaurant := []string{"официант"}
+
 }

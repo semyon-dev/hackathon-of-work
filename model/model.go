@@ -20,6 +20,7 @@ type NewResume struct {
 
 type Vacation struct {
 	Id              string `db:"id"`
+	Type            string `db:"type"`
 	Name            string `db:"name"`
 	Area            string `db:"area"`
 	City            string `db:"city"`
