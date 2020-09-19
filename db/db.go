@@ -1,6 +1,7 @@
 package db
 
 import (
+	"github.com/lib/pq"
 	"hackathon-work/model"
 	"log"
 
@@ -32,6 +33,13 @@ func GetCandidates(limit, offset uint64) (candidates []model.Candidate) {
 	if err != nil {
 		log.Println(err)
 	}
+
+	sel := "SELECT ExperiencePrograms FROM candidates_exp WHERE id = $1"
+	// wrap the output parameter in pq.Array for receiving into it
+	if err := db.QueryRow(sel, title).Scan(pq.Array(&tags)); err != nil {
+		log.Fatal(err)
+	}
+
 	return candidates
 }
 

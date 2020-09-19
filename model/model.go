@@ -10,8 +10,11 @@ type Candidate struct {
 	Type               string   `db:"type"`
 	Experience         string   `db:"experience"`
 	ExperiencePrograms []string `db:"exp_programs"`
+	ExperienceTools    []string `db:"exp_tools"`
+	TypesWork          []string  `db:"types_work"`
 	Industry           []string `db:"industry"`
 	CandidateID        string   `db:"candidate_id"`
+	Companies          []string `db:"companies"`
 	Position           string   `db:"position"`
 	Organization       string   `db:"organization"`
 	Description        string   `db:"description"`
