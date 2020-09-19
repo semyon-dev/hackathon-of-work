@@ -21,7 +21,7 @@ func main() {
 	_ = text
 }
 
-func KeyWords() ([]string, []string)  {
+func KeyWords() ([]string, []string) {
 
 	duties := []string{"обязанност"}
 	demands := []string{"требован", "приглашаем"}
