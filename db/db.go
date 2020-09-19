@@ -52,8 +52,8 @@ func InsertNewResume(resume model.Resume) {
 	fmt.Println(result.RowsAffected())
 }
 
-func InsertNewVacation(vacancie model.Vacation) {
-	result, err := db.NamedExec("INSERT INTO vacancies_new")
+func InsertNewVacation(vacation model.Vacation) {
+	result, err := db.NamedExec("INSERT INTO vacancies_new", vacation)
 	if err != nil {
 		log.Fatal(err)
 	}
