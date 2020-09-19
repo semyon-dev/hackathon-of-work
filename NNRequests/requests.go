@@ -1,28 +1,27 @@
 package NNRequests
 
 import (
+	"github.com/imroc/req"
 	"io/ioutil"
 	"log"
-	"github.com/imroc/req"
 )
 
-type QA struct{
-	Contexts []string    `json:"context_raw"`
-	Questions []string   `json:"question_raw"`
+type QA struct {
+	Contexts  []string `json:"context_raw"`
+	Questions []string `json:"question_raw"`
 }
 
-func GetMapAnswers(obj map[string]map[string]string, context string)map[string]string{
+func GetMapAnswers(obj map[string]map[string]string, context string) map[string]string {
 	var answers = make(map[string]string)
-	for key,val:=range obj{
-		answers[key]= getAnswer(QA{Contexts:[]string{context},Questions:[]string{val["question"]}})
+	for key, val := range obj {
+		answers[key] = getAnswer(QA{Contexts: []string{context}, Questions: []string{val["question"]}})
 	}
 	return answers
 }
 
-
-func getAnswer(qa QA)string{
+func getAnswer(qa QA) string {
 	header := req.Header{
-		"Accept":        "application/json",
+		"Accept": "application/json",
 	}
 	param := req.BodyJSON(&qa)
 
@@ -31,9 +30,9 @@ func getAnswer(qa QA)string{
 		log.Fatal(err)
 	}
 
-	var s,err2 = ioutil.ReadAll(r.Response().Body)
-	if err!=nil{
-		panic(err2)
+	var s, err2 = ioutil.ReadAll(r.Response().Body)
+	if err2 != nil {
+		log.Println(err2)
 	}
 
 	return string(s)
