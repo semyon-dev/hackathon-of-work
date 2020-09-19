@@ -9,8 +9,7 @@ type Resume struct {
 	EndDate      string `db:"end_date"`
 }
 
-
-type Vacation struct {
+type NewVacation struct {
 	Id              string `db:"id"`
 	Type            string `db:"type"`
 	Name            string `db:"name"`
@@ -28,10 +27,6 @@ type Vacation struct {
 	KeySkills       string `db:"key_skills"`
 	Specs           string `db:"specializations"`
 	Description     string `db:"description"`
-}
-
-type NewVacation struct {
-	Vacation
 	Duties          string `db:"duties"`
 	Demands         string `db:"demands"`
 }
