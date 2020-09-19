@@ -11,7 +11,7 @@ func main() {
 
 	db.Connect()
 
-	duties, _ := KeyWords()
+	//duties, _ := KeyWords()
 
 	var text = "Обязанности:   Приготовление напитков в баре  Прием и подача заказов по столикам Работа с кассой\n" +
 		"Требования:  Желание работать и зарабатывать. Опыт работы на подобной должности будет Вашим преимуществом.\n" +
@@ -21,25 +21,40 @@ func main() {
 	_ = text
 
 	vacations := db.GetVacations(1, 101)
+
 	for _, vacation := range vacations {
-		fmt.Println("++++++",vacation.Description, "=========")
-		for _, word := range duties {
-			if strings.Contains(strings.ToLower(vacation.Description), word) {
-				index := strings.Index(strings.ToLower(vacation.Description), word)
-				fmt.Println(index)
-				temp := []rune(vacation.Description)
-				t := temp[index:]
-				t = t[len([]rune(duties[0])):]
-				t = DeleteStartSpaces(t)
-				fmt.Println("Parsed Duties: ", string(t))
-			}
+		fmt.Println(vacation.Description)
+		//fmt.Println("++++++",vacation.Description, "=========")
+		//for _, word := range duties {
+		//	if strings.Contains(strings.ToLower(vacation.Description), word) {
+		//		index := strings.Index(strings.ToLower(vacation.Description), word)
+		//		fmt.Println(index)
+		//		temp := []rune(vacation.Description)
+		//		t := temp[index:]
+		//		t = t[len([]rune(duties[0])):]
+		//		t = DeleteStartSpaces(t)
+		//		fmt.Println("Parsed Duties: ", string(t))
+		//	}
+		//}
+		pieces := strings.Split(strings.ToLower(vacation.Description), "обязанности: ")
+		for _, val := range pieces {
+			fmt.Println("/////", val)
 		}
+
+		if len(pieces) > 1 {
+			temp := pieces[1]
+			temp = DeleteStartSpaces(temp)
+			fmt.Println("No spaces: ", temp)
+		} else {
+			fmt.Println("Unsuccessful crop")
+		}
+
 	}
 }
 
-func DeleteStartSpaces(raw []rune) (formatted []rune) {
+func DeleteStartSpaces(raw string) (formatted string) {
 	c := 0
-	for i := 0; !unicode.IsLetter(raw[i]); i++ {
+	for i := 0; !unicode.IsLetter(rune(raw[i])); i++ {
 		c++
 	}
 	formatted = raw[c:]
