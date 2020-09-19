@@ -36,7 +36,7 @@ type NewVacation struct {
 	Demands         string `db:"demands"`
 }
 
-func (v *NewVacation) Split() {
+func (v *NewVacation) Split(correct, incorrect *int) {
 	pieces := strings.Split(strings.ToLower(v.Description), "обязанности: ")
 
 	var duity, demand string
@@ -46,6 +46,9 @@ func (v *NewVacation) Split() {
 		if strings.Contains(temp, "требования:") {
 			i := strings.Index(temp, "требования:")
 			duity = temp[:i]
+		} else {
+			*incorrect++
+			return
 		}
 
 		temps := strings.Split(strings.ToLower(temp), "требования: ")
@@ -55,11 +58,13 @@ func (v *NewVacation) Split() {
 				i := strings.Index(t, "условия:")
 				demand = t[:i]
 			} else {
-				fmt.Println("Demand error")
+				*incorrect++
+				return
 			}
 
 			v.Duties = duity
 			v.Demands = demand
+			*correct++
 		} else {
 			fmt.Println("Duty error")
 		}
