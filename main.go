@@ -2,7 +2,6 @@ package main
 
 import (
 	"hackathon-work/db"
-	"hackathon-work/model"
 )
 
 func main() {
@@ -21,16 +20,3 @@ func main() {
 	_ = text
 }
 
-func ParseData(raw string) model.Vacation {
-	return model.Vacation{
-		Id:        "",
-		Name:      "",
-		AreaName:  "",
-		City:      "",
-		CompanyID: "",
-		Company:   "",
-		Duties:    "",
-		Demands:   "",
-		Terms:     model.Terms{},
-	}
-}
