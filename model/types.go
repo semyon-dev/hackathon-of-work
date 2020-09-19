@@ -10,19 +10,20 @@ type Resume struct {
 }
 
 type Vacation struct {
-	Id        string
-	Name      string // Название
-	AreaName  string
-	City      string
-	CompanyID string
-	Company   string
-	Duties    string // Обязанности
-	Demands   string // Требования
-	Terms            // Условия
-}
-
-type Terms struct {
-	ScheduleType string // График работы
-	Timetable    string // Время работы
-	Salary       string // Зарплата
+	Id              string `db:"id"`
+	Name            string `db:"name"`
+	Area            string `db:"area"`
+	City            string `db:"city"`
+	CompanyID       string `db:"company_id"`
+	Company         string `db:"company"`
+	CompanyLink     string `db:"company_link"`
+	PublicationDate string `db:"pub_date"`
+	Salary          string `db:"salary_from"`
+	SalaryCurrency  string `db:"salary_currency"`
+	Employer        string `db:"emp_name"`
+	ScheduleName    string `db:"schedule_name"`
+	Experience      string `db:"exp_name"`
+	KeySkills       string `db:"key_skills"`
+	Specs           string `db:"specializations"`
+	Description     string `db:"description"`
 }
