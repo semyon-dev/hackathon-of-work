@@ -13,7 +13,9 @@ func main() {
 
 	db.Connect()
 
-	api.RunAPI()
+	restaurant, drivers, store := CreateTypes()
+
+	go api.RunAPI()
 
 	//duties, _ := KeyWords()
 
@@ -27,6 +29,7 @@ func main() {
 	vacations := db.GetVacations(1, 11)
 
 	for _, vacation := range vacations {
+		fmt.Println(vacation.Id)
 		//fmt.Println("++++++",vacation.Description, "=========")
 		//for _, word := range duties {
 		//	if strings.Contains(strings.ToLower(vacation.Description), word) {
@@ -40,9 +43,6 @@ func main() {
 		//	}
 		//}
 		pieces := strings.Split(strings.ToLower(vacation.Description), "обязанности: ")
-		for _, val := range pieces {
-			fmt.Println("/////", val)
-		}
 
 		var duity, demand string
 
@@ -61,11 +61,22 @@ func main() {
 					i := strings.Index(t, "условия:")
 					demand = t[:i]
 				}
-				fmt.Println("Duity: ", duity, "\nDemand: ", demand)
+
+				vacation.Duties = duity
+				vacation.Demands = demand
+
+				vacation = DetectType(vacation, restaurant, "restaurant")
+				vacation = DetectType(vacation, drivers, "drivers")
+				vacation = DetectType(vacation, store, "store")
+
+				fmt.Printf("Type: %s,\nDuity: %s,\nDemand: %s.", vacation.Type, vacation.Duties, vacation.Demands)
+
+			} else {
+				fmt.Println("Unsuccessful Demand crop")
 			}
 
 		} else {
-			fmt.Println("Unsuccessful crop")
+			fmt.Println("Unsuccessful Duty crop")
 		}
 
 	}
@@ -80,17 +91,23 @@ func DeleteStartSpaces(raw string) (formatted string) {
 	return formatted
 }
 
-func KeyWords() ([]string, []string) {
+func CreateTypes() ([]string, []string, []string) {
 
-	duties := []string{"обязанности:", "обязанност"}
-	demands := []string{"требования:", "приглашаем"}
-	return duties, demands
+	restaurant := []string{"официант", "ресторан", "бариста", "фаст-фуд", "повар"}
+	drivers := []string{"водитель"}
+	store := []string{"склад", "кладовщик", "комплектовщик"}
+
+	return restaurant, drivers, store
 }
 
-func DetectType(resume model.Resume) {
+func DetectType(vacation model.NewVacation, words []string, wantedType string) model.NewVacation {
+	for _, word := range words {
+		if strings.Contains(strings.ToLower(vacation.Name), word) {
 
-	//restaurant := []string{"официант", "ресторан", "бариста", "фаст-фуд", "повар"}
-	//drivers := []string{"водитель"}
-	//store := []string{"склад", "кладовщик"}
-
+			vacation.Type = wantedType
+			db.UpdateNewVacation(vacation)
+			break
+		}
+	}
+	return vacation
 }
