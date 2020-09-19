@@ -17,7 +17,7 @@ func Connect() {
 
 	// this Pings the database trying to connect, panics on error
 	// use sqlx.Open() for sql.Open() semantics
-	db, err = sqlx.Connect("postgres", "user=dima dbname=hack sslmode=disable password=pubavi09 port=5432 connect_timeout=8 host=35.228.59.145")
+	db, err = sqlx.Connect("postgres", "user=dima dbname=dima sslmode=disable password=pubavi09 port=5432 connect_timeout=8 host=35.228.59.145")
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -36,10 +36,10 @@ func GetResumes(limit, offset uint64) (resumes []model.Resume) {
 	return resumes
 }
 
-func GetVacations(limit, offset uint64) (vacancies []model.Vacation) {
+func GetVacations(limit, offset uint64) (vacancies []model.NewVacation) {
 	err := db.Select(&vacancies, "SELECT * FROM vacancies LIMIT $1 OFFSET $2", limit, offset)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	return vacancies
 }

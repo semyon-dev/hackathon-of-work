@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"hackathon-work/db"
-	"math/big"
 	"strings"
 	"unicode"
 )
@@ -21,27 +20,27 @@ func main() {
 
 	_ = text
 
-	vacations := db.GetVacations(3, 0)
-	fmt.Println(vacations)
+	vacations := db.GetVacations(1, 101)
 	for _, vacation := range vacations {
+		fmt.Println("++++++",vacation.Description, "=========")
 		for _, word := range duties {
 			if strings.Contains(strings.ToLower(vacation.Description), word) {
 				index := strings.Index(strings.ToLower(vacation.Description), word)
 				fmt.Println(index)
 				temp := []rune(vacation.Description)
-				t := temp[index+12:]
+				t := temp[index:]
 				c := 0
-				for i:=0; !unicode.IsLetter(t[i]); i++ {
+				for i := 0; !unicode.IsLetter(t[i]); i++ {
 					c++
 				}
-				fmt.Println("Parsed Duties: ",string(t[c:]))
+				fmt.Println("Parsed Duties: ", string(t[c:]))
 			}
 		}
-
-		for _, word := range  {
-
-		}
 	}
+}
+
+func DeleteStartSpaces(raw string) (formated string) {
+
 }
 
 func KeyWords() ([]string, []string) {
@@ -53,6 +52,9 @@ func KeyWords() ([]string, []string) {
 
 func ResumeTypes() ([]string, []string, []string) {
 
-	restaurant := []string{"официант"}
+	restaurant := []string{"официант", "ресторан", "бариста", "фаст-фуд", "повар"}
+	drivers := []string{"водитель", "курьер"}
+	store := []string{"склад", "кладовщик"}
 
+	return restaurant, drivers, store
 }
