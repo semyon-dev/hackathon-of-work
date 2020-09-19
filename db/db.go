@@ -1,6 +1,7 @@
 package db
 
 import (
+	"fmt"
 	"hackathon-work/model"
 	"log"
 
@@ -41,4 +42,20 @@ func GetVacations(limit, offset uint64) (vacancies []model.Vacation) {
 		log.Fatal(err)
 	}
 	return vacancies
+}
+
+func InsertNewResume(resume model.Resume) {
+	result, err := db.NamedExec("INSERT INTO candidates_exp_new ()VALUES(:id, :)", resume)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result.RowsAffected())
+}
+
+func InsertNewVacation(vacancie model.Vacation) {
+	result, err := db.NamedExec("INSERT INTO vacancies_new")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result.RowsAffected())
 }
