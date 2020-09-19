@@ -39,33 +39,44 @@ type NewVacation struct {
 	Demands         string `db:"demands"`
 }
 
-func (v *NewVacation) Split(correct, incorrect *int) {
-	pieces := strings.Split(strings.ToLower(v.Description), "обязанности: ")
+func CreateTypes() ([]string, []string, []string) {
 
-	var duity, demand string
+	restaurant := []string{"официант", "ресторан", "бариста", "фаст-фуд", "повар"}
+	drivers := []string{"водитель", "машинист"}
+	store := []string{"склад", "кладовщик", "комплектовщик"}
+
+	return restaurant, drivers, store
+}
+
+func (v *NewVacation) Split(correct, incorrect *int) {
+	pieces := strings.Split(strings.ToLower(v.Description), "обязанности:")
+
+	var duty, demand string
 
 	if len(pieces) > 1 {
 		temp := pieces[1]
 		if strings.Contains(temp, "требования:") {
 			i := strings.Index(temp, "требования:")
-			duity = temp[:i]
+			duty = temp[:i]
 		} else {
+			fmt.Println(v.Description)
 			*incorrect++
 			return
 		}
 
-		temps := strings.Split(strings.ToLower(temp), "требования: ")
+		temps := strings.Split(strings.ToLower(temp), "требования:")
 		if len(temps) > 1 {
 			t := temps[1]
 			if strings.Contains(t, "условия:") {
 				i := strings.Index(t, "условия:")
 				demand = t[:i]
 			} else {
+				fmt.Println(v.Description)
 				*incorrect++
 				return
 			}
 
-			v.Duties = duity
+			v.Duties = duty
 			v.Demands = demand
 			*correct++
 		} else {

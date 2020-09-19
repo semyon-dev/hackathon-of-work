@@ -27,7 +27,7 @@ func Connect() {
 	}
 }
 
-func GetResumes(limit, offset uint64) (candidates []model.Candidate) {
+func GetCandidates(limit, offset uint64) (candidates []model.Candidate) {
 	err := db.Select(&candidates, "SELECT * FROM candidates_exp ORDER BY id LIMIT $1 OFFSET $2", limit, offset)
 	if err != nil {
 		log.Println(err)
@@ -51,7 +51,7 @@ func UpdateNewVacation(vacancie model.NewVacation) {
 }
 
 func UpdateCandidate(candidate model.Candidate) {
-	_, err := db.NamedExec(`update candidate SET type = :type WHERE id = :id`, candidate)
+	_, err := db.NamedExec(`update candidates_exp SET type = :type WHERE id = :id`, candidate)
 	if err != nil {
 		log.Println(err)
 	}
