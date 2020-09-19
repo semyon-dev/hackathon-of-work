@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"hackathon-work/db"
+	"hackathon-work/model"
 	"strings"
 	"unicode"
 )
@@ -83,11 +84,11 @@ func KeyWords() ([]string, []string) {
 	return duties, demands
 }
 
-func ResumeTypes() ([]string, []string, []string) {
+func DetectType(resume model.Resume) {
 
-	restaurant := []string{"официант", "ресторан", "бариста", "фаст-фуд", "повар"}
-	drivers := []string{"водитель", "курьер"}
-	store := []string{"склад", "кладовщик"}
+	//restaurant := []string{"официант", "ресторан", "бариста", "фаст-фуд", "повар"}
+	//drivers := []string{"водитель"}
+	//store := []string{"склад", "кладовщик"}
 
-	return restaurant, drivers, store
+
 }
