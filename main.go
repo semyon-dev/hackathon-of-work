@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/hacktrud/hackathon-work/api"
 	"fmt"
 	"hackathon-work/ML"
+	"hackathon-work/api"
 	"hackathon-work/config"
 	"hackathon-work/db"
 	"hackathon-work/mongo"
@@ -11,9 +11,9 @@ import (
 )
 
 func main() {
-	//config.Load()
-	//db.Connect()
-	//mongo.Connect()
+	config.Load()
+	db.Connect()
+	mongo.Connect()
 	api.RunAPI()
 
 	//done0 := make(chan struct{})
@@ -28,7 +28,7 @@ func main() {
 	//<-done1
 	//<-done2
 	//Restaruns()
-	Store()
+	//Store()
 	//ML.ReadFile()
 }
 

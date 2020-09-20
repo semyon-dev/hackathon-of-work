@@ -3,6 +3,7 @@ module hackathon-work
 go 1.15
 
 require (
+	github.com/gin-contrib/cors v1.3.1
 	github.com/gin-gonic/gin v1.6.3
 	github.com/imroc/req v0.3.0
 	github.com/jmoiron/sqlx v1.2.0
