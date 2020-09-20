@@ -2,37 +2,72 @@ package api
 
 import (
 	"encoding/json"
+	"fmt"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"hackathon-work/NNRequests"
+	"github.com/hacktrud/hackathon-work/NNRequests"
+
 	"io/ioutil"
 	"log"
 	"net/http"
 )
 
 func RunAPI() {
+
+	var jsonModelsPath = "hackathon-work/data/jsonModels/"
+
+	fileNames,err:= ioutil.ReadDir(jsonModelsPath)
+	for i:=range fileNames{
+		fmt.Println(fileNames[i].Name())
+	}
+
+
 	r := gin.Default()
+	r.Use(cors.Default())
+	r.Static("static","./hackathon-work/static")
+	r.Static("js","./hackathon-work/static/dist/js")
+	r.Static("css","./hackathon-work/static/dist/css")
+
+
 	r.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "pong",
 		})
 	})
 
+
+
 	r.POST("/resume", func(c *gin.Context) {
 
+		fmt.Println(" in resume")
+
 		jsonInput := struct {
-			Competences string `json:"competences"`
-			Resume      string `json:"resume"`
+			Competences string `json:"competention"`
+			Resume      string `json:"context"`
 		}{}
 
-		if err := c.ShouldBindJSON(&jsonInput); err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{
-				"message": "error: can't bind json",
-			})
-			return
+		c.ShouldBindJSON(&jsonInput)
+
+		fmt.Println("------")
+		fmt.Println(jsonInput.Competences,jsonInput.Resume)
+
+		jsonStructData,err:=ioutil.ReadFile(jsonModelsPath+jsonInput.Competences+".json")
+
+		dictQuestions := make(map[string]map[string]string)
+
+
+		err = json.Unmarshal(jsonStructData, &dictQuestions)
+		if err!=nil{
+			fmt.Println(err)
 		}
+
+
+		var answers = NNRequests.GetMapAnswers(dictQuestions,jsonInput.Resume)
+		returnedJson,err:=json.Marshal(answers)
 
 		c.JSON(http.StatusCreated, gin.H{
 			"message": "ok",
+			"data": string(returnedJson),
 		})
 	})
 
@@ -62,7 +97,8 @@ func RunAPI() {
 
 	})
 
-	err := r.Run(":5555")
+	// 5555
+	err = r.Run(":5000")
 	if err != nil {
 		log.Println(err)
 	}

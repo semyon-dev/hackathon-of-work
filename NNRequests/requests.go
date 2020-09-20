@@ -13,8 +13,8 @@ type QA struct {
 
 func GetMapAnswers(obj map[string]map[string]string, context string) map[string]string {
 	var answers = make(map[string]string)
-	for key, val := range obj {
-		answers[key] = getAnswer(QA{Contexts: []string{context}, Questions: []string{val["question"]}})
+	for _, val := range obj {
+		answers[val["question"]] = getAnswer(QA{Contexts: []string{context}, Questions: []string{val["question"]}})
 	}
 	return answers
 }

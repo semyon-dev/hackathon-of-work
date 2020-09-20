@@ -1,16 +1,14 @@
 package main
 
 import (
-	"hackathon-work/config"
-	"hackathon-work/db"
-	"hackathon-work/mongo"
+	"github.com/hacktrud/hackathon-work/api"
 )
 
 func main() {
-	config.Load()
-	db.Connect()
-	mongo.Connect()
-	//api.RunAPI()
+	//config.Load()
+	//db.Connect()
+	//mongo.Connect()
+	api.RunAPI()
 
 	//db.GetStoreAnswers()
 	//done := make(chan struct{})
