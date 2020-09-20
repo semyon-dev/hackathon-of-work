@@ -8,15 +8,16 @@ import (
 	"strings"
 )
 
-func GetStoreAnswers() (err error) {
+func GetStoreAnswers() {
 
-	candidates := GetCandidates(10000, 90000)
+	candidates := GetCandidates(3, 0)
 
 	for _, c := range candidates {
 
 		var answers model.CandidateStore
 
 		if c.Type == "store" {
+			answers.Q1 = c.Position
 			answers.Q1 = c.Position
 			answers.Q2 = true
 
@@ -62,8 +63,58 @@ func GetStoreAnswers() (err error) {
 			}
 		}
 	}
+}
 
-	return err
+// for updates
+const limit = 10000
+const offset = 90000
+
+func UpdateStoreAnswers(done chan struct{}) {
+	candidates := GetCandidates(limit, offset)
+	for _, c := range candidates {
+		var answers model.CandidateStore
+		if c.Type == "store" {
+			answers.Id = c.Id
+			answers.Description = c.Description
+			err := mongo.UpdateStoreAnswers(answers)
+			if err != nil {
+				log.Println(err)
+			}
+		}
+	}
+	close(done)
+}
+
+//func UpdateRestaurantsAnswers(done chan struct{}) {
+//	candidates := GetCandidates(limit, offset)
+//	for _, c := range candidates {
+//		var answers model.CandidateRestaurant
+//		if c.Type == "restaurant" {
+//			answers.Id = c.Id
+//			answers.Description = c.Description
+//			err := mongo.UpdateRestaurantsAnswers(answers)
+//			if err != nil {
+//				log.Println(err)
+//			}
+//		}
+//	}
+//	close(done)
+//}
+
+func UpdateDriversAnswers(done chan struct{}) {
+	candidates := GetCandidates(limit, offset)
+	for _, c := range candidates {
+		var answers model.CandidateDriver
+		if c.Type == "drivers" {
+			answers.Id = c.Id
+			answers.Description = c.Description
+			err := mongo.UpdatesDriversAnswers(answers)
+			if err != nil {
+				log.Println(err)
+			}
+		}
+	}
+	close(done)
 }
 
 func GetRestaurantsAnswers(done chan struct{}) {

@@ -93,7 +93,9 @@ func (v *NewVacation) Split(correct, incorrect *int) {
 
 // ------------------- ML -----------------
 
-type Res []Data
+type Res struct {
+	Data []Data `json:"data"`
+}
 
 // data to answer
 type Data struct {
@@ -102,8 +104,8 @@ type Data struct {
 }
 
 type Paragraph struct {
-	Context string
-	Qas     []Qas `json:"qas"`
+	Context string `json:"context"`
+	Qas     []Qas  `json:"qas"`
 }
 
 type Qas struct {
