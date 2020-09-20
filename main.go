@@ -12,5 +12,9 @@ func main() {
 	mongo.Connect()
 	//api.RunAPI()
 
-	db.GetStoreAnswers()
+	//db.GetStoreAnswers()
+	//done := make(chan struct{})
+	//go db.GetRestaurantsAnswers(done)
+	//<-done
+	//db.GetDriversAnswers()
 }

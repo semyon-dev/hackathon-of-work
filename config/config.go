@@ -9,7 +9,6 @@ import (
 var MongoDBPassword string
 
 func Load() {
-
 	err := godotenv.Load()
 	if err != nil {
 		fmt.Println("× Ошибка загрузки .env файла: " + err.Error())

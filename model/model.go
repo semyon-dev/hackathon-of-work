@@ -6,25 +6,25 @@ import (
 )
 
 type Candidate struct {
-	Id                 int64    `db:"id"` // postgres primary key
-	Type               string   `db:"type"`
-	Experience         string   `db:"experience"`
-	ExperiencePrograms []string `db:"exp_programs"`
-	ExperienceTools    []string `db:"exp_tools"`
-	TypesWork          []string  `db:"types_work"`
-	Industry           []string `db:"industry"`
-	CandidateID        string   `db:"candidate_id"`
-	Companies          []string `db:"companies"`
-	Position           string   `db:"position"`
-	Organization       string   `db:"organization"`
-	Description        string   `db:"description"`
-	StartDate          string   `db:"start_date"`
-	EndDate            string   `db:"end_date"`
-	Systems            []string `db:"systems"`
+	Id                 int64  `db:"id"` // postgres primary key
+	Type               string `db:"type"`
+	Experience         string `db:"experience"`
+	ExperiencePrograms string `db:"exp_programs"`
+	ExperienceTools    string `db:"exp_tools"`
+	TypesWork          string `db:"types_work"`
+	Industry           string `db:"industry"`
+	CandidateID        string `db:"candidate_id"`
+	Companies          string `db:"companies"`
+	Position           string `db:"position"` // Название позиции в организации
+	Organization       string `db:"organization"`
+	Description        string `db:"description"` // Описание работы
+	StartDate          string `db:"start_date"`
+	EndDate            string `db:"end_date"`
+	Systems            string `db:"systems"`
 }
 
 type NewVacation struct {
-	Id              string `db:"id"`
+	Id              string `db:"id"` // postgres primary key
 	Type            string `db:"type"`
 	Name            string `db:"name"`
 	Area            string `db:"area"`

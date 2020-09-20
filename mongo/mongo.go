@@ -12,7 +12,8 @@ var client *mongo.Client
 var candidatesStoreCollection *mongo.Collection
 var candidatesRestaurantCollection *mongo.Collection
 var candidatesDriversCollection *mongo.Collection
-var vacationsCollection *mongo.Collection
+
+//var vacationsCollection *mongo.Collection
 
 func Connect() {
 
@@ -38,5 +39,5 @@ func Connect() {
 	candidatesStoreCollection = mainDB.Collection("candidates_store")
 	candidatesRestaurantCollection = mainDB.Collection("candidates_restaurant")
 	candidatesDriversCollection = mainDB.Collection("candidates_drivers")
-	vacationsCollection = mainDB.Collection("vacations")
+	//vacationsCollection = mainDB.Collection("vacations")
 }
