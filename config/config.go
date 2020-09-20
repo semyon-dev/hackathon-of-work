@@ -8,6 +8,7 @@ import (
 
 var MongoDBPassword string
 
+// загрузка конфигов
 func Load() {
 	err := godotenv.Load()
 	if err != nil {
