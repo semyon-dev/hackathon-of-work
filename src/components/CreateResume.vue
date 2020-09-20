@@ -1,11 +1,11 @@
 <template>
   <div>
 
-    <div class="right-cell-grid">
+    <div >
       <div class="center">
         <img alt="Vue logo" src="../assets/logo.jpg" width="260px">
         <div>
-          <input list="competentions" type="text" v-model="compType"/>
+          <input list="competentions" type="text" v-model="compType" placeholder="choose type.." />
 
           <datalist id="competentions">
             <option v-for="(comp, index) in competentions" :key="index">
@@ -16,19 +16,17 @@
           <br>
           <br>
 
-          <textarea v-model="resume" ></textarea>
-
+          <div align="center">
+            <textarea class="form-control" v-model="resume" placeholder="Description..." ></textarea>
+          </div>
           <br>
           <br>
 
-          <button @click="load">загрузить резюме</button>
+          <button @click="load" class="btn-primary">загрузить резюме</button>
         </div>
         <div>
 
 
-          <div class="vector2">
-            <img src="../images/Vector2.png" />
-          </div>
 
         </div>
 
@@ -39,8 +37,8 @@
       <h3>
         Resume Table:
       </h3>
-      <div>
-        <table>
+      <div align="center" >
+        <table class="table" border="1px">
           <tr v-for="(answer,question,index) in QA" :key="index" >
             <td>
               {{question}}
@@ -53,7 +51,8 @@
       </div>
 
 
-      <button @click="showRawJson">raw json</button>
+      <br>
+      <button @click="showRawJson" class="btn-primary">показать json</button>
       <div>
         {{rawJson}}
       </div>
@@ -146,5 +145,7 @@ export default {
   .center{
     alignment: center;
   }
+
+
 
 </style>
