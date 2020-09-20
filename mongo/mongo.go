@@ -3,17 +3,18 @@ package mongo
 import (
 	"context"
 	"fmt"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"hackathon-work/config"
+	"hackathon-work/model"
+	"log"
 )
 
 var client *mongo.Client
 var candidatesStoreCollection *mongo.Collection
 var candidatesRestaurantCollection *mongo.Collection
 var candidatesDriversCollection *mongo.Collection
-
-//var vacationsCollection *mongo.Collection
 
 func Connect() {
 
@@ -39,5 +40,26 @@ func Connect() {
 	candidatesStoreCollection = mainDB.Collection("candidates_store")
 	candidatesRestaurantCollection = mainDB.Collection("candidates_restaurant")
 	candidatesDriversCollection = mainDB.Collection("candidates_drivers")
-	//vacationsCollection = mainDB.Collection("vacations")
+}
+
+func GetAllRestaurants() (restaurants []model.CandidateRestaurant) {
+	cursor, err := candidatesRestaurantCollection.Find(context.TODO(), bson.M{})
+	if err != nil {
+		log.Println(err)
+	}
+	if err = cursor.All(context.TODO(), &restaurants); err != nil {
+		log.Println(err)
+	}
+	return restaurants
+}
+
+func GetAllStores() (cands []model.CandidateStore) {
+	cursor, err := candidatesStoreCollection.Find(context.TODO(), bson.M{})
+	if err != nil {
+		log.Println(err)
+	}
+	if err = cursor.All(context.TODO(), &cands); err != nil {
+		log.Println(err)
+	}
+	return cands
 }
