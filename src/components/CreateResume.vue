@@ -9,7 +9,7 @@
 
           <datalist id="competentions">
             <option v-for="(comp, index) in competentions" :key="index">
-              {{ comp }}
+              {{ comp.split('.')[0] }}
             </option>
           </datalist>
 
@@ -24,12 +24,12 @@
           <button @click="load">загрузить резюме</button>
         </div>
         <div>
-          <div class="vector1">
-            <img src="../images/Vector1.png" />
-          </div>
+
+
           <div class="vector2">
             <img src="../images/Vector2.png" />
           </div>
+
         </div>
 
       </div>
@@ -79,7 +79,8 @@ export default {
       competentions: ["Официант", "Кладовищик", "Водитель погрузчика"],
       resume: "",
       QA: {},
-      rawJson:""
+      rawJson:"",
+      models: []
     }
 
   },
@@ -95,12 +96,12 @@ export default {
         body: JSON.stringify(data)
 
       }).then(response => response.json())
-          .then(data => {
-            console.log(data)
-            this.QA = JSON.parse(data.data)
-            console.log(this.QA)
-            this.state=2
-          });
+              .then(data => {
+                console.log(data)
+                this.QA = JSON.parse(data.data)
+                console.log(this.QA)
+                this.state=2
+              });
 
 
     },
@@ -118,7 +119,23 @@ export default {
       })
 
       this.rawJson = JSON.stringify(newQA)
+    },
+    getAvailableModels(){
+      let url = 'http://localhost:5000/modelsAvailable'
+      fetch(url, {
+        method: 'GET',
+      }).then(response => response.json())
+              .then(data => {
+                console.log(data)
+                this.models = JSON.parse(data.models)
+                console.log(this.models)
+                this.competentions = this.models
+              });
     }
+  },
+  created() {
+    console.log('CREATED!!!!')
+    this.getAvailableModels()
   }
 }
 </script>
