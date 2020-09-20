@@ -2,7 +2,7 @@ package model
 
 // Модель 1 - «Кладовищик»
 type CandidateStore struct {
-	Description string   `json:"description" bson:"description"`
+	Description string   `json:"desciption" bson:"desciption"`
 	Id          int64    `json:"id" bson:"_id"`
 	CandidateID string   `json:"candidate_id" bson:"candidate_id"`
 	Q1          string   `json:"q1" bson:"q1"`   // Желаемая должность

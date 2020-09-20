@@ -70,7 +70,7 @@ type Key struct {
 type Reply map[string][]Key //json  key = id + q
 
 func ReadFile() {
-	var plan, err = ioutil.ReadFile("pred5.json")
+	var plan, err = ioutil.ReadFile("pred6.json")
 	if err != nil {
 		log.Println(err)
 	}
@@ -95,6 +95,38 @@ func ReadFile() {
 				restaurant.Id = int64(in)
 				fmt.Println(restaurant.Id)
 				mongo.UpdateRestaurantsAnswers(restaurant, "q"+mas[1], v[l].Text)
+			}
+		}
+	}
+	fmt.Println(a)
+}
+
+func ReadFileStores() {
+	var plan, err = ioutil.ReadFile("pred.json")
+	if err != nil {
+		log.Println(err)
+	}
+	var data Reply
+	var kkk map[string][]Key
+	data = kkk
+	err = json.Unmarshal(plan, &data)
+	if err != nil {
+		log.Println(err)
+	}
+	var a int
+	var restaurant model.CandidateStore
+	for key, v := range data {
+		for l := 0; l < len(v); l++ {
+			if v[l].Probability >= 0.70 {
+				a++
+				mas := strings.Split(key, "_")
+				in, err := strconv.Atoi(mas[0])
+				if err != nil {
+					log.Println(err)
+				}
+				restaurant.Id = int64(in)
+				fmt.Println(restaurant.Id)
+				mongo.UpdateStoreAnswers(restaurant, "q"+mas[1], v[l].Text)
 			}
 		}
 	}

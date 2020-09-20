@@ -26,11 +26,12 @@ func main() {
 	//<-done0
 	//<-done1
 	//<-done2
-	//t()
-	ML.ReadFile()
+	//Restaruns()
+	Store()
+	//ML.ReadFile()
 }
 
-func t() {
+func Restaruns() {
 	restaurants := mongo.GetAllRestaurants()
 	var ch int
 	for _, v := range restaurants {
@@ -52,6 +53,42 @@ func t() {
 		}
 		if len(v.Q7) == 0 {
 			ML.CreateAnswer(v.Description, "дополнительные профессиональные знания и навыки?", strconv.Itoa(int(v.Id))+"_7")
+		}
+	}
+}
+
+func Store() {
+	restaurants := mongo.GetAllStores()
+	var ch int
+	for _, v := range restaurants {
+		if v.Description == "" {
+			continue
+		}
+		fmt.Println(ch)
+		ch++
+		if ch == 5000 {
+			ch = 0
+			ML.FINISH()
+		}
+		// Отрасль
+		if len(v.Q4) == 0 {
+			// Отрасль
+			ML.CreateAnswer(v.Description, "Отрасль?", strconv.Itoa(int(v.Id))+"_4")
+		}
+		if len(v.Q6) == 0 {
+			ML.CreateAnswer(v.Description, "С какой системой хранения Вы имели опыт работы?", strconv.Itoa(int(v.Id))+"_6")
+		}
+		if len(v.Q7) == 0 {
+			ML.CreateAnswer(v.Description, "Опыт работы с программами?", strconv.Itoa(int(v.Id))+"_7")
+		}
+		if len(v.Q8) == 0 {
+			ML.CreateAnswer(v.Description, "Опыт с инструментарием?", strconv.Itoa(int(v.Id))+"_8")
+		}
+		if len(v.Q9) == 0 {
+			ML.CreateAnswer(v.Description, "Типы работ?", strconv.Itoa(int(v.Id))+"_9")
+		}
+		if v.Q11 == 0 {
+			ML.CreateAnswer(v.Description, "Уровень ЗП (желаемый)?", strconv.Itoa(int(v.Id))+"_11")
 		}
 	}
 }
