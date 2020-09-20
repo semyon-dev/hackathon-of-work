@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <div class="right-cell-grid">
       <div class="center">
         <img alt="Vue logo" src="../assets/logo.jpg" width="260px">
@@ -15,28 +16,53 @@
           <br>
           <br>
 
-          <input  type="file"  v-on:change="changeFile" />
+          <textarea v-model="resume" ></textarea>
 
           <br>
           <br>
 
-
-          <button class="white--text v-btn theme--light elevation-10 v-size--default accent" @click="load">загрузить резюме</button>
+          <button @click="load">загрузить резюме</button>
+        </div>
+        <div>
+          <div class="vector1">
+            <img src="../images/Vector1.png" />
+          </div>
+          <div class="vector2">
+            <img src="../images/Vector2.png" />
+          </div>
         </div>
 
       </div>
+    </div>
 
+    <div v-if="state===2">
+      <h3>
+        Resume Table:
+      </h3>
       <div>
-        <div class="vector1">
-          <img src="../images/Vector1.png" />
-        </div>
-        <div class="vector2">
-          <img src="../images/Vector2.png" />
-        </div>
+        <table>
+          <tr v-for="(answer,question,index) in QA" :key="index" >
+            <td>
+              {{question}}
+            </td>
+            <td>
+              {{answer.split(',')[0].slice(2)}}
+            </td>
+          </tr>
+        </table>
       </div>
+
+
+      <button @click="showRawJson">raw json</button>
+      <div>
+        {{rawJson}}
+      </div>
+
 
 
     </div>
+
+
   </div>
 </template>
 
@@ -48,26 +74,33 @@ export default {
   name: "CreateResume",
   data: () => {
     return {
+      state: 1,
       compType: "",
       competentions: ["Официант", "Кладовищик", "Водитель погрузчика"],
-      resume: ""
+      resume: "",
+      QA: {},
+      rawJson:""
     }
 
   },
   methods: {
     load() {
-      let url = ""
+      let url = 'http://localhost:5000/resume'
       let data = {context: this.resume, competention: this.compType}
       fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
-          // 'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: JSON.stringify(data)
 
       }).then(response => response.json())
-          .then(data => console.log(data));
+          .then(data => {
+            console.log(data)
+            this.QA = JSON.parse(data.data)
+            console.log(this.QA)
+            this.state=2
+          });
 
 
     },
@@ -75,6 +108,16 @@ export default {
       console.log('file changed!!!!!!!!!')
       console.log(event.target.files[0])
 
+    },
+    showRawJson(){
+      let model = this.QA
+      let newQA = {}
+      let keys = Object.keys(model)
+      keys.map((val)=>{
+        newQA[val] = model[val].split(',')[0].slice(2)
+      })
+
+      this.rawJson = JSON.stringify(newQA)
     }
   }
 }
