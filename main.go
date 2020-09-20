@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"hackathon-work/ML"
-	"hackathon-work/api"
 	"hackathon-work/config"
 	"hackathon-work/db"
 	"hackathon-work/mongo"
@@ -14,7 +13,7 @@ func main() {
 	config.Load()
 	db.Connect()
 	mongo.Connect()
-	api.RunAPI()
+	//api.RunAPI()
 
 	//done0 := make(chan struct{})
 	//done1 := make(chan struct{})
@@ -29,7 +28,7 @@ func main() {
 	//<-done2
 	//Restaruns()
 	//Store()
-	//ML.ReadFile()
+	ML.ReadFileStores()
 }
 
 func Restaruns() {

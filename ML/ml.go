@@ -70,7 +70,7 @@ type Key struct {
 type Reply map[string][]Key //json  key = id + q
 
 func ReadFile() {
-	var plan, err = ioutil.ReadFile("pred6.json")
+	var plan, err = ioutil.ReadFile("pred.json")
 	if err != nil {
 		log.Println(err)
 	}
@@ -102,7 +102,7 @@ func ReadFile() {
 }
 
 func ReadFileStores() {
-	var plan, err = ioutil.ReadFile("pred.json")
+	var plan, err = ioutil.ReadFile("pred1-5.json")
 	if err != nil {
 		log.Println(err)
 	}

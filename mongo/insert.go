@@ -40,7 +40,8 @@ func UpdateStoreAnswers(stores model.CandidateStore, number, answer string) {
 	case "q11":
 		r, err := strconv.Atoi(answer)
 		if err != nil {
-			log.Println(err)
+			//log.Println(err)
+			return
 		}
 		stores.Q11 = r
 		update = bson.M{"$set": bson.M{"q11": stores.Q11}}

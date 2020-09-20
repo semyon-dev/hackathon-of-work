@@ -69,21 +69,21 @@ func GetStoreAnswers() {
 const limit = 10000
 const offset = 90000
 
-func UpdateStoreAnswers(done chan struct{}) {
-	candidates := GetCandidates(limit, offset)
-	for _, c := range candidates {
-		var answers model.CandidateStore
-		if c.Type == "store" {
-			answers.Id = c.Id
-			answers.Description = c.Description
-			err := mongo.UpdateStoreAnswers(answers)
-			if err != nil {
-				log.Println(err)
-			}
-		}
-	}
-	close(done)
-}
+//func UpdateStoreAnswers(done chan struct{}) {
+//	candidates := GetCandidates(limit, offset)
+//	for _, c := range candidates {
+//		var answers model.CandidateStore
+//		if c.Type == "store" {
+//			answers.Id = c.Id
+//			answers.Description = c.Description
+//			err := mongo.UpdateStoreAnswers(answers)
+//			if err != nil {
+//				log.Println(err)
+//			}
+//		}
+//	}
+//	close(done)
+//}
 
 //func UpdateRestaurantsAnswers(done chan struct{}) {
 //	candidates := GetCandidates(limit, offset)
