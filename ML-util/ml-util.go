@@ -1,9 +1,12 @@
-package ML
+package ML_util
+
+import "hackathon-work/model"
+
+// файл с функциями для генерации вопросов к ML в нужном формате
 
 import (
 	"encoding/json"
 	"fmt"
-	"hackathon-work/model"
 	"hackathon-work/mongo"
 	"io/ioutil"
 	"log"

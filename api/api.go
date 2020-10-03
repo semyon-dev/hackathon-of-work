@@ -42,10 +42,13 @@ func RunAPI() {
 			Resume      string `json:"context"`
 		}{}
 
-		c.ShouldBindJSON(&jsonInput)
+		err = c.ShouldBindJSON(&jsonInput)
+		if err != nil {
+			return
+		}
 
-		fmt.Println("------")
-		fmt.Println(jsonInput.Competences, jsonInput.Resume)
+		//fmt.Println("------")
+		//fmt.Println(jsonInput.Competences, jsonInput.Resume)
 
 		jsonStructData, err := ioutil.ReadFile(jsonModelsPath + jsonInput.Competences + ".json")
 
@@ -53,7 +56,7 @@ func RunAPI() {
 
 		err = json.Unmarshal(jsonStructData, &dictQuestions)
 		if err != nil {
-			fmt.Println(err)
+			log.Println(err)
 		}
 
 		var answers = NNRequests.GetMapAnswers(dictQuestions, jsonInput.Resume)
@@ -91,7 +94,6 @@ func RunAPI() {
 
 	})
 
-	// 5555
 	err = r.Run(":5000")
 	if err != nil {
 		log.Println(err)
