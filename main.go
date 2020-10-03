@@ -28,7 +28,7 @@ func main() {
 	//<-done2
 	//Restaruns()
 	//Store()
-	ML.ReadFileStores()
+	//ML.ReadFileStores()
 }
 
 func Restaruns() {
