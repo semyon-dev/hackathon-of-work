@@ -12,6 +12,9 @@
 * [kniazevgeny](https://github.com/kniazevgeny)
 * [Necromant24](https://github.com/Necromant24)
 
+<img src="https://github.com/semyon-dev/hackathon-of-work/blob/master/photo_team.jpg" align="center" height="80%" width="80%">
+
+
 ### Лицензия
 
 MIT
