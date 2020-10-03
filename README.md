@@ -1,6 +1,6 @@
 # hackathon-of-work
 
-Хакатон Труда 2020
+[Хакатон Труда 2020](https://xn--80aaap2atgrpcmp.xn--p1ai/)
 
 Первое место
 
