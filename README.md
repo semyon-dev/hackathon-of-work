@@ -6,6 +6,7 @@
 
 ### Команда origin dev
 
+* [semyon-dev](https://github.com/semyon-dev)
 * [dchudik](https://github.com/dchudik)
 * [3xlerman](https://github.com/3xlerman)
 * [kniazevgeny](https://github.com/kniazevgeny)
