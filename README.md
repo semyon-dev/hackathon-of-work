@@ -17,4 +17,4 @@
 
 ### Лицензия
 
-MIT
+[MIT](https://github.com/semyon-dev/hackathon-of-work/blob/master/LICENSE)
