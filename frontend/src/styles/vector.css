@@ -1,0 +1,26 @@
+.vector1{
+    /* Vector 1 */
+
+    position: absolute;
+    left: 74.1%;
+    right: -4.62%;
+    top: -15.11%;
+    bottom: -11.11%;
+
+    background: linear-gradient(186.98deg, #7187EC -0.01%, #E24F85 89.42%);
+
+}
+
+.vector2{
+    /* Vector 2 */
+
+    position: absolute;
+    width: 461.96px;
+    height: 1011px;
+    left: 1056px;
+    top: -95px;
+
+    background: linear-gradient(180deg, #6F2443 0%, #393764 100%);
+
+}
+
