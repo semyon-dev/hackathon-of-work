@@ -14,6 +14,18 @@
 
 <img src="https://github.com/semyon-dev/hackathon-of-work/blob/master/photo_team.jpg" align="center" height="80%" width="80%">
 
+### Tech stack
+
+* Golang
+* Python
+* MongoDB
+* PostgreSQL
+* Colab
+* Bert
+* Vue
+
+[Jupyter notebook in colab](https://colab.research.google.com/drive/1QV6Kcnr7B4nz8a02bO2neE4X-ikeJnqU?usp=sharing)
+
 
 ### Лицензия
 
